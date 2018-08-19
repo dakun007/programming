@@ -1,0 +1,30 @@
+一 、设置Git的user name和email：
+  1、git config --global user.name "dakun007"
+  2、git config --global user.email "1275263021@qq.com"
+  
+ 二、生成SSH密钥过程：
+生成新的Key：  ssh-keygen -t rsa -C "1275263021@qq.com"
+然后一直回车即可
+提交公钥：找到.ssh文件夹，用文本编辑器打开“id_rsa.pub”文件，复制内容到剪贴板。
+
+
+//DW项目
+mkdir DW
+cd DW
+git init
+echo "# DW" >> README.md
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:dakun007/DW.git
+git push -u origin master
+
+
+//代码项目
+mkdir programming
+cd programming
+git init
+echo "# programming" >> README.md
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:dakun007/programming.git
+git push -u origin master
