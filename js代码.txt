@@ -1,0 +1,92 @@
+﻿//语法
+return confirm('确定要删除吗？');  //用于在HTML上，防止点错是就删掉
+history.go(-1);		返回上一级
+history.go(1);  禁止返回上一页
+window.location.href='指定路径'		跳转指定路径
+document.getElementById('id值');  获取id
+location.reload()  //刷新
+onclick  点击事件
+//阻止加载网页：window.stop()
+//在网页显示内容： document.write("你好!")
+
+onclick="this.parentNode.parentNode.submit();"  //parentNode是上一级 、这个语句意思是找到上一级中的submit()按钮
+
+//检测ie6到ie8,不过不支持ie11，所以这句话，不要用
+if (window.navigator.userAgent.indexOf("MSIE")>=1)  alert(1);  else alert(2);
+//检测i8到ie11
+if (!!window.ActiveXObject || "ActiveXObject" in window)  return true;   else  alert('请使用IE游览器，才能正常游览本网站！');}
+
+<!--开始-->
+定时刷新只一次
+function refresh(){
+  
+    url = location.href;
+ 
+    console.log(url);
+    var once = url.split("#");
+ 
+    if (once[1] != 1) {
+ 
+        url += "#1";
+ 
+        self.location.replace(url);
+ 
+        window.location.reload();
+ 
+    }
+}
+ 
+setTimeout('refresh()', 1);
+<!--结束-->
+
+
+网页可见区域宽： document.body.clientWidth 
+网页可见区域高： document.body.clientHeight 
+网页可见区域宽： document.body.offsetWidth (包括边线的宽) 
+网页可见区域高： document.body.offsetHeight (包括边线的高) 
+网页正文全文宽： document.body.scrollWidth 
+网页正文全文高： document.body.scrollHeight 
+网页被卷去的高： document.body.scrollTop 
+网页被卷去的左： document.body.scrollLeft 
+网页正文部分上： window.screenTop 
+网页正文部分左： window.screenLeft 
+屏幕分辨率的高： window.screen.height 
+屏幕分辨率的宽： window.screen.width 
+屏幕可用工作区高度： window.screen.availHeight 
+屏幕可用工作区宽度： window.screen.availWidth 
+
+//删除的时候要加上是否要删除
+在html标签中：onclick="return confirm('确定要删除吗？');"
+
+//定时器
+window.setTimeout([function],[interval]) 设置一个定时器,并且设定了一个等待的时间[interval],当到达时间后,执行对应的方法[function],当方法执行完成定时器停止(但是定时器还在,只不过没用了);
+window.setInterval([function],[interval]) 设置一个定时器,并且设定了一个等待的时间[interval],当到达时间后,执行对应的方法[function],当方法执行完成,定时器并没有停止,以后每隔[interval]这么长的时间都会重新的执行对应的方法[function],直到我们手动清除定时器为止;
+window.clearInterval(timer1)/window.clearTimeout(time1)；两种清除方式都可以清除通过setTimeout和setInterval设置的定时器(两种方式在设置定时器的时候有区别，清除定时器的时候没有区别)
+
+
+//页面后退时刷新
+if (window.name != "bencalie") {
+        location.reload();
+        window.name = "bencalie";
+    }
+    else {
+        window.name = "";
+    }
+    
+  文本框只能输入数字代码(小数点也不能输入)
+  <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+
+
+
+
+//阻止鼠标拖动：
+<script>  
+第一：
+console.log(document.getElementsByTagName('img'));  
+document.getElementsByTagName('img')[0].onmousedown = function(e){  
+    e.preventDefault()  
+};  
+第二：
+function imgdragstart(){return false;}
+   for(i in document.images)document.images[i].ondragstart=imgdragstart;
+</script>  

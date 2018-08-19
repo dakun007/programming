@@ -1,0 +1,235 @@
+﻿S=>cache£¬C=>config£¬M/D=>model£¬U=>url£¬I=>input£¬E=>exception£¬L=>lang£¬A=>controller£¬R=>action
+input('get.id'); // I('get.id');
+input('post.name'); // I('post.name')
+
+
+//渲染模板
+return $view->fetch('index');      输出模板，需要配置use 命名，以及要继承 (extends) controller
+return view('index');              系统助手无需做任何操作默认即可，但是缺点就是查询一下操作的时候，不是很友好！
+
+
+//文件调用
+{include file="地址"}
+
+//伪静态：才支持去掉index.php
+原生：RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L] 要修改成：RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
+
+th5命名空间规则：用于方法，常亮，类
+namespace 名称地址；
+const 名称=“值”； 
+命名空间是为了防止名称相同而是用的。
+输出指定的名称空间的方法： \app\getttom();
+命名空间有三种访问方式：
+一：非限定名称访问 ，getttom();      
+二：限定名称访问   beijin\gead\aa();  ..相对位置
+三：完全限定名称访问 \beijin\gead\aa(); ..可以理解为绝对位置
+注意点：username:是项目文件夹，根据项目文件名称定义大小写开头，use 以及 class 必须是大写开发
+
+数据操作：  想要了解更多就多多查看手册
+案例：  \think\Db::name('表名称')->insert('插入数据');
+find();          //查询一条数据
+select();       //查询所有
+insert()        //添加
+getLastInsID()   //添加数据后需要返回ID的时，就可以用他
+insertAll（）      //插入多条数据
+update()          //修改
+delete()           //删除
+order('字段值 条件如:降序(desc)或升序(asc)');	  查询字段排序
+limit(2,3);   查询出来的结果从：地2条到3，几条到几条 或 limit(3)只查询3条 
+count()  查询总记录。
+distinct(true)  去掉重复数据
+group('字段') 去掉重复数据
+join() 连贯操作方法
+
+//搜索
+like //单个搜索
+between //数组搜索array($a,$b) 使用案例：array('between',array($a,$b));
+
+钩子模式事件：
+before_insert	新增前
+after_insert	新增后
+before_update	更新前
+after_update	更新后
+before_write	写入前
+after_write	    写入后
+before_delete	删除前
+after_delete	删除后
+
+助手函数：
+abort	            中断执行并发送HTTP状态码
+action	            调用控制器类的操作
+cache	            缓存管理
+config	            获取和设置配置参数
+controller	        实例化控制器
+cookie	            Cookie管理
+db	                实例化数据库类
+debug	            调试时间和内存占用
+dump	            浏览器友好的变量输出
+exception	        抛出异常处理
+halt	            变量调试输出并中断执行
+import	            导入所需的类库
+input	            获取输入数据 支持默认值和过滤   3.2 I()方法，input('?get.id');
+json	            JSON数据输出
+jsonp	            JSONP数据输出
+lang	            获取语言变量值
+load_trait	        快速导入Traits PHP5.5以上无需调用   
+model	            实例化Model
+redirect	        重定向输出
+request	            实例化Request对象
+response	        实例化Response对象
+session	            Session管理
+trace	            记录日志信息
+token	            生成表单令牌输出
+url	                Url生成     3.2 U()方法
+validate	        实例化验证器
+vendor	            快速导入第三方框架类库
+view	            渲染模板输出
+widget	            渲染输出Widget
+xml	                XML数据输出
+
+//自动生成，注意：build.php文件要放好
+$build = include 'build.php';   //读取自动生成定义文件
+Build::run($build);   //运行自动生成，注意：是要加上\think\来帮定根命名空间，\think\Build::run($build); ，这种是自定义模式
+\think\Build::module('admin');  //自动生成admin模块，但是所有文件都是以默认形式。
+
+全局替换的话，可以直接在配置文件中添加：config.php公共
+'view_replace_str'  =>  [
+    '__PUBLIC__'=>'/public/',
+    '__ROOT__' => '/',
+]
+
+//获取ip地区：
+ $ip = 127.0.0.1
+ $url='http://ip.taobao.com/service/getIpInfo.php?ip='.$ip;
+ $result = file_get_contents($url);
+ $result = json_decode($result,true);
+
+
+
+//获取请求类型:
+一， think\Request类 处理请求类型。     二，助手函数request(),if (request()->isGet()) echo "当前为 GET 请求";是否为 GET 请求
+二，助手函数request()。
+request()->isPost(),这句组合是判断是不是post提交过来的，request()这个方法是要控制器去继承Controller( extends Controller ),
+request()->controller() //获取当前控制器名称
+request()->action() //获取当前方法名
+
+一， think\Request类 处理请求类型。
+// 是否为 GET 请求
+if (Request::instance()->isGet()) echo "当前为 GET 请求";
+// 是否为 POST 请求
+if (Request::instance()->isPost()) echo "当前为 POST 请求";
+// 是否为 PUT 请求
+if (Request::instance()->isPut()) echo "当前为 PUT 请求";
+// 是否为 DELETE 请求
+if (Request::instance()->isDelete()) echo "当前为 DELETE 请求";
+// 是否为 Ajax 请求
+if (Request::instance()->isAjax()) echo "当前为 Ajax 请求";
+// 是否为 Pjax 请求
+if (Request::instance()->isPjax()) echo "当前为 Pjax 请求";
+// 是否为手机访问
+if (Request::instance()->isMobile()) echo "当前为手机访问";
+// 是否为 HEAD 请求
+if (Request::instance()->isHead()) echo "当前为 HEAD 请求";
+// 是否为 Patch 请求
+if (Request::instance()->isPatch()) echo "当前为 PATCH 请求";
+// 是否为 OPTIONS 请求
+if (Request::instance()->isOptions()) echo "当前为 OPTIONS 请求";
+// 是否为 cli
+if (Request::instance()->isCli()) echo "当前为 cli";
+// 是否为 cgi
+if (Request::instance()->isCgi()) echo "当前为 cgi";
+
+
+//自动验证
+独立的\think\Validate类或者验证器进行验证，需要新建Validata文件夹
+namespace app\index\validate;
+use think\Validate;
+class User extends Validate
+{
+    设置规则
+    protected $rule = [
+        '值'  =>  'require|max:25',
+        'email' =>  'email',
+    ];
+    设置显示错误
+    protected $message  =   [
+        '值.require' => '名称必须',
+        'name.max'     => '名称最多不能超过25个字符',
+        'age.number'   => '年龄必须是数字',
+        'age.between'  => '年龄只能在1-120之间',
+        'email'        => '邮箱格式错误',    
+    ];
+
+}
+最后要控制器里执行：实例化
+$validate = \think\Loader::validate('User');
+判断：
+if(!$validate->check(传过来的值)){
+    dump($validate->getError());
+}
+
+//控制器里调用模型：
+\think\Loader::model('Index')->addData();
+Index：模型名称。
+addData() ：模式的方法
+\think\Loader:: 是类名tp自带
+model() 类名的方法
+
+//在模型中查出数据需要转换::
+toArray() 方法转换：$user->toArray(), $user是值  //这个只能转换一维数组
+也可以使用json:  json_encode(转换值);
+多维数组需要：collection();函数
+collection(值)->toArray();
+
+
+
+ //设置自动完成的字段，支持键值对数组和索引数组
+    //新增和更新时都会使用
+    //如：['name'=>'zhangsan','sex'=>'男']
+    // ['name','sex']
+    protected $auto = [];
+
+    //新增 自动完成列表
+    //只在新增数据的时候使用
+    protected $insert = [];
+
+    //更新 自动完成列表
+    //只在更新数据的时候使用
+    protected $update = [];
+
+    //用来标记当前操作被修改的字段
+    //如 ['name','sex']
+    protected $change = [];
+
+    //依赖方法,model类会自动调用解析auto数组
+    //我们只需配置auto数组即可
+    protected function autoCompleteData($auto = []){}
+
+
+    //获取当前操作地址：
+    dump(request()->controller()); //控制器
+    dump(request()->module());    //模块
+    dump(request()->action());    //操作方法
+    
+    
+    
+ //thinkphp5中引入第三方类库
+通过了解tp5的目录结构，我们知道其中有两个目录是纺织扩展类库文件的。
+extend是放置自定义或者其他类文件的。
+vendor目录是放置composer类库文件的。
+当我们的第三方类库文件是下载的，而且类文件目录一层又一层，我们开发当中要按照tp5的命名规范来做效率就会非常的低，而且面向对象编程就是拿来即用，何必还要动手去改类文件的源码。
+其实tp5给了我们一种方式去实现不用命名空间来加载第三方的类！
+我们将类文件放到extend目录下，在控制器中要用到类的话可以通过import(),函数手动引入类文件，引入方法官方手册中有说明（架构->自动加载->类库导入）。
+// 引入 extend/qrcode.php
+Loader::import('qrcode', EXTEND_PATH);
+// 助手函数
+import('qrcode', EXTEND_PATH);
+// 引入 extend/wechat-sdk/wechat.class.php
+Loader::import('wechat-sdk.wechat', EXTEND_PATH,'.class.php');
+// 助手函数
+import('wechat-sdk.wechat', EXTEND_PATH,'.class.php');
+手动引入了类文件后，进行实例化需要特别注意了！
+我们需要在 new 类文件（）时，在类文件前面加一个 “ \ ” ，
+即如下：
+$obj = new  \Test();
+加 ‘\’ 的原因是，tp5的命名空间自动加载规则：自动加载的实现由think\Loader类库完成，自动加载规范符合PHP的PSR-4，根据对规则的了解，放在extend目录下没有定义命名空间的类文件，就是全局化的类。实例化全局化的类的话，即用"\"放在类名前示此类是全局类，就new一个全局化的类！

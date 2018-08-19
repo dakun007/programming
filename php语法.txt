@@ -1,0 +1,444 @@
+﻿变量： $开头后必须是英文或数字，不允许特殊符号，可以用下划线、但不用于开头
+//php类型
+字符类型 ( string ) ：字符序列，比如 "Hello world!"。
+数字类型 (  )：以数字为止，135.5566
+数组类型 ( array )：一个变量中存储多个值。array("Volvo","BMW","SAAB");
+浮点数型 ( float/double/real )：有小数点或指数形式的数字。
+整型->整数 ( integer/int )：没有小数的数字。
+布尔型 ( boolean/bool )：true 或 false。
+对象 ( object )：对象是存储数据和有关如何处理数据的信息的数据类型。
+null : 特殊的 NULL 值表示变量无值。NULL 是数据类型 NULL 唯一可能的值。.、
+
+
+禁止游览器缓存当前php文件：下面针对不同游览器设置的。 
+ header("Cache-Control:no-cache");
+ header("Pragma:no-cache");
+ header("Expires:-1");
+
+
+echo "PHP软件版本:".phpversion(); 
+mysql_connect('127.0.0.1','root',''); 
+echo mysql_get_server_info(); 
+$version=apache_get_version(); 
+echo "$version"; 
+
+//PHP数据类型有三种转换方式： $num1=3.14;   
+1、在要转换的变量之前加上用括号括起来的目标类型 ： $num2=(int)$num1; 
+2、使用3个具体类型的转换函数，intval()、floatval()、strval() ： $flg=settype($num1,"int"); 
+3、使用通用类型转换函数settype(mixed var,string type) ： $float=floatval($num1); //转换后数值：123.9   
+
+页面跳转
+redirect('跳转地址','说明'); //可以不加上说明
+header('Location:other.php');  //PHP原生跳转
+header('Refresh:3,Url=other.php');  //PHP原生跳转 3秒后跳转
+真true 假false
+
+//php基本语法
+@去除报错信息
+header("Content-Type:text/html;charset=utf-8");   //设置页面编码
+round(x,prec)  ： 四舍五入函数，x/可选。规定要舍入的数字。prec/可选。规定小数点后的位数。如：echo round(3.1415);// print 3 // echo round(3.1415, 3);// print 3.142
+{值?'对':'错'}  //三元运算符,如：{(2>3)?'是':'否'}
+GetImageSize(图片地址);获取图片详情信息如:宽高
+strlen() 获取字符的长度  isset($str{6})
+. 拼接语法，如： .=
+strpos() 函数查找 "php" 在字符串中第一次出现的位置：，可以来判断字符串有没有空格，如strpos(' 1213   233 '," "）；
+rand(1,20)  //随机整数
+mt_rand(3,10);  //随机输出3到10之间的数字
+reutnrn 返回
+strstr()指定字符开始截取，前部截取：strstr ( '123456789' ,  '5' ,true); ,后部截取：strstr ( '123456789' ,  '5'); 
+assign('名称'，'值')； 吧数据值传入到html页面。$this->assign('info',$info);
+str_shuffle — 随机打乱字符串
+substr — 返回字符串的子串 (截取字符串)，substr('字符串'，0,10); ，删除最后一个字符substr($b, 0, -1)；
+tp:分装的{$ov.se_url|msubstr=0,50,'utf-8'}
+empty — 检查一个变量是否为空
+isset — 检测变量是否设置  检测变量是否设置，并且不是 NULL。 
+ is_null  功能检测变量是否设置，并且不是 NULL。 
+unset — 释放给定的变量  销毁指定的变量
+count — 计算数组中的单元数目或对象中的属性个数  也就是说计算机总长度
+dei()和exit(); 这两个都是脚本阻止的。
+mb_substr（值，开始，结束）；mb_substr($ax,0,-1);   
+echo $_SERVER['HTTP_HOST']."<br>"; #localhost  //获取域名或主机地址 
+echo $_SERVER['PHP_SELF']."<br>"; #/blog/testurl.php  //获取网页地址 
+echo $_SERVER["QUERY_STRING"]."<br>"; #id=5   //获取网址参数 
+echo $_SERVER['HTTP_REFERER']."<br>";   //获取用户代理 
+str_replace("要被替换的值","要替换成说明值",数据$aa,可以打印出当前替换了多少次数$i);  //替换函数
+explode函数分割字符串到数组
+$source = "hello1,hello2,hello3,hello4,hello5";//按逗号分离字符串 
+$hello = explode(',',$source); 
+implode() 数组转字符串
+file_exists:文件是否存在
+is_dir:目录是否存在
+strrev() 字符倒序
+trim() 去掉前后空格
+continue( 跳出当前循环，下方程序还可以执行 )、break( 跳出当前循环，下方程序还可以执行 )、exit ( 跳出当前循环，下方程序不可以执行 ); //PHP跳出循环的方法
+$_SERVER["REMOTE_ADDR"];  //获取IP
+if //判断语法，if(1>2){echo 1;}else if(2>3){echo 2;}else{echo 3;}
+for //循环（循环数组，以及自己定义数字循环），for($i=0;$i<200;$i++){ echo $i };
+foreach //循环数组 ，$name = [1,2,4,5,6,7,8,9]; foreach( $name as $key=>$value ){ echo $value } ,key是键值，value是数值
+while //只要指定条件为真，则循环代码块, $x=5 while($x<9) { echo $x; $x++};
+do...while 循环首先会执行一次代码块，然后检查条件，如果指定条件为真，则重复循环。
+do {
+  要执行的代码;
+} while (条件为真)
+file_get_contents('文件地址') ;  //把文件以符形式打开，可以直接打印出来
+die();exit() //阻止执行
+var_dump(); 打印出数据
+print_r() 也是打印出数组的
+iconv('GBK','UTF-8',$aa);  将$aa中的字符串的编码从GBk转到UTF-8 
+include('文件地址');  //引入文件，出现错误时脚本会继续
+require('文件地址')	//引入文件，出现错误时脚本就停止运行
+getcwd() ； 打印出本文件的目录
+__FILE__ ： 打印出本文件的结对路径
+$_FILES : 打印出上传文件信息，
+unlink('文件路径'); // 一次只能删除一个文件，不能批量删除
+rmdir（地址） — 删除目录
+ord() 函数 返回  ASCII值：
+strpos() 函数   查找 "php" 在字符串中第一次出现的位置：
+global全局变量，全局变量前缀都是以g为前 golbal=$str
+static $str=1 静态变量
+define() 自定义常量
+
+
+加密解密函数实例
+base64_decode（值）  解码
+base64_encode（值）  加密
+
+//正则使用
+preg_match_all（） //正则匹配多个 （'规则','内容','匹配后值'）,替换多个
+preg_match（）   //正则匹配一个   （'规则','内容','匹配后值'），替换一个
+1.“/”是定界符，“/”定界符之间的部分就是将要在目标对象中进行匹配的模式。同时为了正则更加灵活，引入了元字符，即“+”， “*”，以及 “?”。
+（1）“+”元字符规定其前导字符必须在目标对象中连续出现一次或多次
+比如：/php+/，能够与“phpp”匹配，即字母ph后面连续出现一个或多个字母p的字符串相匹配。
+（2）“*”元字符规定其前导字符必须在目标对象中出现零次或连续多次
+比如：/php*/能够与“phpddt”相匹配，即ph后面可以有0个或多个p
+（3）“?”元字符规定其前导对象必须在目标对象中连续出现零次或一次。
+比如：/php?/能够“pher”匹配，即phh后面可以有0个或者1个p
+其他重要的元字符：
+\s：用于匹配单个空格符，包括tab键和换行符；
+\S：用于匹配除单个空格符之外的所有字符；
+\d：用于匹配从0到9的数字；
+\w：用于匹配字母，数字或下划线字符；
+\W：用于匹配所有与\w不匹配的字符；
+. ：用于匹配除换行符之外的所有字符。
+示例：/\s+/用于匹配目标对象中的一个或多个空格字符
+2.定位符用于规定匹配模式在目标对象中的出现位置。常用的有“^”, “$”, “\b” 以及 “\B”
+(1)“^”定位符规定匹配模式必须出现在目标字符串的开头
+(2)“$”定位符规定匹配模式必须出现在目标对象的结尾
+(3)\b定位符规定匹配模式必须出现在目标字符串的开头或结尾的两个边界之一
+(4)“\B”定位符则规定匹配对象必须位于目标字符串的开头和结尾两个边界之内
+3.php的正则匹配模式非常灵活，可以指定某一范围 
+例如：
+/[A-Z]/
+上述正则表达式将会与从A到Z范围内任何一个大写字母相匹配。
+/[a-z]/
+上述正则表达式将会与从a到z范围内任何一个小写字母相匹配。
+/[0-9]/
+上述正则表达式将会与从0到9范围内任何一个数字相匹配。
+/([a-z][A-Z][0-9])+/
+上述正则表达式将会与任何由字母和数字组成的字符串
+4.可以同时与多种模式选择匹配
+如/phpddt.com|phpddt|100/可以与“phpddt.com” “phpddt” “100”相匹配
+5.否定符 “[^]”规定目标对象中不能存在模式中所规定的字符串
+例如:[^phpddt]匹配除了phpddt字符外的所有东西
+如案例（验证手机号）：$mobile = '15858588585';  
+  //下面的1便是手机的第一位数字必须为数字1  
+  //[0-9]指后面的数字均为0~9的数字  
+  //{9}这中间的9指的是手机号码除了第一位数外，其他要重复10次，刚好就是11位数了  
+  if(!preg_match('/^1([0-9]{9})/',$mobile)) exit('您的手机号码不正确');  
+
+
+
+
+//PHP取整数函数常用的四种方法：
+1.直接取整，舍弃小数，保留整数：intval()； : intval(3.64159);  // 3
+2.四舍五入取整：round()；                 : round(3.64159);      // 4
+3.向上取整，有小数就加1：ceil()；         : ceil(3.14159);  // 4
+4.向下取整：floor()。                    : floor(3.64159);    // 3
+
+
+//字符串替换的几个函数：
+strtr()
+str_replace()
+substr_replace()
+preg_replace()
+
+//判断类型
+is_bool();//判断是否为布尔型
+is_float(); //判断是否为浮点型
+is_int(); //判断是否为整型
+is_numeric(); //判断是否为数值型
+is_string(); //判断是否为字符串
+is_array(); //判断是否为数组
+is_object(); //判断是否为对象
+is_numeric() //判断是否数字
+
+//数组排序
+sort() - 以数字升序对数组排序
+rsort() - 以数字降序对数组排序
+array_sort（数组，键值）//根据数组中的某个键值升序
+array_rsort（数组，键值）//根据数组中的某个键值降序
+asort() - 根据值，以升序对关联数组进行排序
+ksort() - 根据键，以升序对关联数组进行排序
+arsort() - 根据值，以降序对关联数组进行排序
+krsort() - 根据键，以降序对关联数组进行排序
+使用： $a = array(1,4,5,6,7,7); sort($a); var_dump($a);这样既可
+
+
+//数组语句：详情最好查询php手册
+array_reverse(数据值,true);反转数组  第二参数是保留原来的key键值所以要加true
+arrar_merge(数据1,数组2); 合拼一个或多个数组
+合并数组并且保留键值不变，只要把两个数组加个 + 号即可 如：$a = [2=>123,3=>444]; $b = [1=>123,4=>555]; $c = $a+b;即可
+array_shift — 将数组开头的单元移出数组 
+array_merge_recursive(1，2); 拼接数组
+array_unique  检查是否重复,并移除重复
+array_key_exists： 纯粹的判断数组键值对是否存在，无论值是多少
+shuffle() 打乱数组
+array_slice（值，0，2） 取出数组第几条数据
+is_array（）；  //判断当前页面是不是数组
+array_intersect_assoc(1,2) //检查两个数组中重复的
+array_intersect(1,2) //检查两个数组中重复的，这个比较精准
+array_merge(array_diff($1,$2)); //获取两个数组中不相同的数据，原理是先把两个数据合成一个数据，然后在比较两个数据的键值交叉返回不相同的数据
+in_array（$a,$b）;//判断数组里的值是否存在，$a是字符，$b是数组
+
+
+//删除数组里的值
+$array = array(0 => "a", 1 => "b", 2 => "c");
+删除一个元素，且保持原有索引不变：unset($array[1]);
+删除一个元素，不保持索引：array_splice($array, 1, 1);
+按值删除多个元素，保持索引 ：array_diff($array, ["a", "c"]);
+按键删除多个元素，保持索引： array_diff_key($array, [0 => "xy", "2" => "xy"]);
+
+
+//json语法
+json_encode（传值）；
+
+//执行系统命令
+exec("sudo shutdown -h now");
+执行打开软件
+system('notepad.exe')
+
+
+//面向对象语法：
+public 表示全局，类内部外部子类都可以访问；
+private表示私有的，只有本类内部可以使用；
+protected表示受保护的，只有本类或子类或父类中可以访问；
+
+
+//外部使用框架（百度Um编辑器）
+引入一些js和css这些可以在文件里的index.html案例中复制出来
+第一个参数是：传入id,第二个是配置项。
+UM.getEditor('goods_desc',{
+    initialFrameWidth:1000 //初始化编辑器宽度,默认500
+    ,initialFrameHeight:300  //初始化编辑器高度,默认500
+});
+
+
+//外部使用htmlpurifier（过滤恶意攻击代码）
+下载好源码包之后我们只要拿里面的library文件夹就行了，然后把这个文件夹引入网站根目录下。
+在Common创建一个function 公共文件，然后把下面语句导入就行了，改一下require_once CORE_PATH . 'HtmlPurifier/HTMLPurifier.auto.php'; 路径问题
+require_once CORE_PATH . 'HtmlPurifier/HTMLPurifier.auto.php';
+$_clean_xss_config = HTMLPurifier_Config::createDefault();
+$_clean_xss_config->set('Core.Encoding', 'UTF-8');
+$_clean_xss_config->set('HTML.Allowed','div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]');
+$_clean_xss_config->set('CSS.AllowedProperties', 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align');
+$_clean_xss_config->set('HTML.TargetBlank', TRUE);
+$_clean_xss_obj = new HTMLPurifier($_clean_xss_config);
+return $_clean_xss_obj->purify($data);
+
+//时间戳转法
+strtotime  //把日期转为时间戳，使用：strtotime('2018-05-05 12:43:55');
+date('Y-m-d H:i:s', 1156219870); //UNIX时间戳转换为日期用函数
+
+
+//session和cookie操作  
+session_start() 开启session简称初始化，要用到session的时候就要开启
+$_SESSION['这里是放值的'];   创建一个session值  如：session设置有效时间：$lifeTime = 24 * 3600;设置保存一天  session_set_cookie_params($lifeTime);将时间写入session,  session_start(); 最后开启session初始化 
+
+
+//ajax返回获取值
+json_encode()  //原生返回值
+eval('('+ data +')'); //返回数据循环出数组
+JSON.parse(返会对象 )  //ec6 最新解析json数据
+console.log 打印
+
+
+//判断是不是使用微信游览器
+if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ){
+return 1;//是
+} 
+
+//打开文件，并写入文件和关闭
+fopen 打开 $fh = fopen('./msg.txt' , 'a');
+fwrite 写入 fwrite($fh , 'from php into txt');
+fclose 关闭 fclose($fh);
+fopen（mode）说明：
+"r"	只读方式打开，将文件指针指向文件头。
+"r+"	读写方式打开，将文件指针指向文件头。
+"w"	写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。
+"w+"	读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。
+"a"	写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+"a+"	读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+"x"	创建并以写入方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建之。
+这和给底层的 open(2) 系统调用指定 O_EXCL|O_CREAT 标记是等价的。
+"x+"	创建并以读写方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建之。
+这和给底层的 open(2) 系统调用指定 O_EXCL|O_CREAT 标记是等价的。
+
+
+//字符截取
+$str='123/456/789/abc';
+截取最后一个斜杠后面的内容可以这样来：echo trim(strrchr($str, '/'),'/'); 
+截取第一个斜杠前面的内容可以这样来：echo substr($str,strpos($str, '/'))；
+截取第一个斜杠后面的内容可以这样来：：echo substr($str,strpos($str,'/')+1);
+
+
+//文件大小计算
+$size = 123;
+$units = array(' B', ' KB', ' MB', ' GB', ' TB'); 
+for ($i = 0; $size >= 1024 && $i < 4; $i++) {
+    $size /= 1024;
+}
+return  round($size, 2).$units[$i]; 
+
+
+//php SHA256Hex加密
+function SHA256Hex($str){
+    $re=hash('sha256', $str, true);
+    return bin2hex($re);
+}
+password_hash 加密方式：它有三个参数：密码、哈希算法（PASSWORD_DEFAULT）、选项。前两项为必须的。$pwd = "123456";$hash = password_hash($pwd, PASSWORD_DEFAULT);
+password_verify()来校验密码是否和哈希值匹配：密码和哈希值，并返回布尔值。检查之前生成的哈希值是否和密码匹配，password_verify($pwd,'$2y$10$4kAu4FNGuolmRmSSHgKEMe3DbG5pm3diikFkiAKNh.Sf1tPbB4uo2')
+
+//URL加密
+$url = 'http://www.xxx.com/CraryPrimitiveMan/';
+$encodeUrl = urlencode($url);   //加密
+echo $encodeUrl . "\n";// 如果是在网页上展示的，就将\n修改为<br/>
+echo urldecode($encodeUrl);  //解析
+得到的结果如下
+http%3A%2F%2Fwww.xxx.com%2FCraryPrimitiveMan%2F
+http://www.xxx.com/CraryPrimitiveMan/
+
+
+//打开目录里的所有文件
+if(file_exists($url)){
+    $i =0;
+    if(is_dir($url)){                   //检测是否是合法目录
+        if ($list = opendir($url)){      //打开目录
+            while ($read_list = readdir($list)){  //读取目录
+                if($read_list!='.' && $read_list!='..'){
+                    $i++;
+                    echo iconv("gb2312","utf-8","$read_list")."<br>";
+                }
+            }
+            closedir($list);    //关于目录
+        }
+    }
+}
+
+
+//防盗链链接，使用Apache的.htaccess防盗链：
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_REFERER} !www.tand.com [NC]   允许站点自身访问，同理，后面还要允许百度，谷歌，和一些订阅源访问。
+    RewriteRule .*\.(gif|jpg|png|js|css)$ http://www.tand.com/index.php [R,NC,L] 这里可以设置防止盗链的类型，如果盗链可以跳转到网站首页，本站没有做图片防盗链，如果你做图片防盗链可以设置被盗链的替代图片：
+</IfModule>
+
+//php 防盗链：
+$referer = $_SERVER['HTTP_REFERER'];
+$selfurl = $_SERVER['HTTP_HOST'];
+if(false == strpos($referer,$selfurl)){
+echo 'phpddt.com防止非法盗链';
+exit;
+}
+
+
+
+//SQL查询
+field('user','输入数据库字段'); 		查询出想要的字段
+select()	查询多行数据库字段
+where('输入条件')  查询条件
+find()		查询一条数据
+order('字段值 条件如:降序(desc)或升序(asc)');	  查询字段排序
+limit(2,3);   查询出来的结果从：地2条到3，几条到几条 或 limit(3)只查询3条 
+update();修改语句
+insert(); 添加语句
+delete();删除语句
+count()  查询总记录。
+distinct(true)  去掉重复数据
+group('字段') 去掉重复数据
+join() 连贯操作方法 案例：field('a.*,b.brand_name')->alias('a')->join('LEFT JOIN __BRAND__ b ON a.goods_brand_id=b.id') ，a是指本身，b是指第二表，alias是给本身自己附一个名称,join（LEFT JOIN __第二表名__ 为b表 ON对比 a.goods_id = b.id）
+案例：
+$goodsModel->field('goods_id,goods_name,shop_price,goods_img,market_price')->where('is_hot=1')->order('goods_id desc')->limit('0,4')->select();
+
+//增删改查
+insert into user (uid,name,age) values (1,'lisi',23);  //新增 说明：insert into user (uid,name,age) values (1,'lisi',23);
+
+
+//php连接mysql操作
+//对象
+$conn  = new mysqli("localhost", "root", "123123", "数据库");  //现在最好用这个，最新连接mysql
+$conn->query();
+基本就是这样写法 
+
+//过程
+// 1 链接数据库
+    $link = mysqli_connect('127.0.0.1','root','123123');
+    // var_dump($link);
+
+// 2 判断是否连接成功
+    if (!$link) {
+        exit('数据连接失败');
+    }
+
+// 3 设置字符集
+    mysqli_set_charset($link,'utf8');
+
+// 4 选择数据库
+    mysqli_select_db($link,'demo');
+
+
+// 5 准备sql语句  select update insert delete
+    $sql = "select * from user";  //查询所有数据
+
+// 6 发送sql语句
+    $res = mysqli_query($link, $sql);
+    // var_dump($res);
+
+// 7 处理结果集
+    $result = mysqli_fetch_assoc($res);
+    var_dump($result);
+
+// 8 关闭数据库（释放内存）
+    mysqli_close($link);
+
+//语法
+select      //查询
+update      //修改
+insert      //添加
+delete      //删除
+where       //条件查询
+order by('字段值 条件如:降序(desc)或升序(asc)')       // 查询字段排序
+limit(2,3);   查询出来的结果从：地2条到3，几条到几条 或 limit(3)只查询3条 
+
+
+//基本语法
+select * from user; //select:开头语，*是所有，user是数据表 
+select id,user from user; //select:开头语，id和user是表字段，user是数据表，展示那些需要的表字段
+insert into user(user,yes,om) values ('007','12',121);  //insert into是开头语，user是数据表,(user,yes,om)那些数据字段要被添加的，values后面的('007','12',121)要被写入的数据
+update user set user='name' where id=1;  //update:开头语,user是数据表 set是指定那些要被修改的字段数据如：user='name'就是说user字段中的数据更新为name , where id=1更新的条件
+delete from user where id=1；   //delete from:开头语,user是数据表,where id=1删除的条件
+
+//处理结果集
+mysqli_fetch_assoc(查询出来的数据);     //该函数是处理一条数据，每复制一条就输出下一条数据，用于查询只有一个数据的时候就用到。
+mysql_fetch_row()                     // 从结果集中取得一行作为枚举数组，用于查询只有一个数据的时候就用到。
+mysql_fetch_array()                   //从结果集中取得一行作为关联数组，或数字数组，或二者兼有，不经常用，根据个人情况用 参数1：执行sql 返回的数组集合 如查询,参数2 参数2是常量是大写 MYSQL_NUM  返回为索引数组 MYSQL_BOTH        关联数组 默认  MYSQL_ASSOC       混合数组
+mysqli_num_rows($str);                //返回查询的长度
+
+
+//常用 mysqli 的 php语法
+mysqli_error(数据);                 //输出错误信息
+mysqli_insert_id($conn);            //这个是返回最近插入的数据的ID值
+mysqli_affected_rows($link)         //返回mysql操作所影响的记录行数
+mysqli_close(链接的数据变量);       //关闭数据库（释放内存）
+mysqli_set_charset($link,'utf8');  //设置字符集
+mysqli_query（$link，$sql）        //发送sql语句
+

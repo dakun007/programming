@@ -1,0 +1,300 @@
+学习面向对象思想：
+命名规范：类名遵从大驼峰原则 personTest(小驼峰) ===> Persontest(大驼峰)
+
+语法：
+__construct();          //初始化调用,自动调方法,简称：构造方法
+$this                   //代表的就是当前对象
+extends 对象名称        //继承语法
+public                 //公共方法
+protected              //受保护方法
+private                //私有方法
+parent                 //重写关键字,在父类的基础上增加一定的功能,parent::(普通方法,构造方法),
+final                  //禁止被继承，用于在class上和方法上，设置后无法被继承
+
+/***********继承***********/
+父子类叫法：
+    父类==子类
+    基类==派生类
+单继承：
+    子类只能有一个父类
+继承语法：
+extends:继承语法
+如：class Tata extends Da {}
+子类继承了父类，那么就拥有了父类的属性和方法
+子类拥有父类的所有属性，还拥有自己独有的属性
+
+访问权限：
+ public         公共方法
+ protected      受保护方法
+ private        私有方法
+使用规则：
+public 可以被外部直接访问， 而且public和protected都可以被继承的子类调用，而private不能被子类继承，自能在自己的内部调用，但protected和private不能被外部所调用，能在子类或父类里的内部调用。
+注意: 外部是指，new 一个对象的时候，所调用那个对象里的方法等，
+如果:  function a(){} 不加上权限名称，默认都是public
+
+
+/*********************重写方法（重载）********************/
+重写作用：
+    父类的方法不适合子类使用，那么这个时候子类可以重写父类的方法
+重写分两种：
+    完全重写
+    在父类的基础上增加一定的功能
+子类调用的方法是子类重写后的方法，父类还是调用父类的方法。
+parent关键字（普通方法，构造方法）
+    parent::work();
+    先调用父类的方法，然后在增加自己的功能。这个方法也可以用于调用本身自己，到达让继承者直接拥有父级所有元素。
+final关键字
+    final:修饰class,代表这个类不能被继承
+    final:修饰method(方法)，代表这个方法不能被重写
+重写的方法权限修改
+    public ===> public
+    protected ===> protected public 
+    重写的时候权限只能放大不能缩小
+
+
+*****************魔术方法*******************
+什么是魔术方法：系统在特定的时机自动调用的方法，就叫做魔术方法
+//常用的魔术方法：
+__get
+    触发时机，对象在外部方法私有成员或者受保护属性时调用该方法有一个参数：参数就是属性名称
+__set
+    触发时机：对象在外部设置私有或者受保护成员属性值的时候调用该方法有两个参数: 参数1，成员属性名。参数2：要设置的值。
+在外部可以通过unset销毁对象中的public属性
+__unset
+    触发时机：对象在外部销毁私有或者受保护成员属性的时候调用该方法有一个参数：参数就是私有的成员属性名。
+__isset
+    触发时机：对象在外部判断私有或者受保护成员属性的时候调用该方法有一个参数：参数就是私有的成员属性名。
+__construct:构造方法
+    触发时机：在创建对象的时候自动调用
+__destruct: 析构方法
+    触发时机：当对象被释放（销毁）的时候自动调用
+__toString(了解)
+    触发时机：echo 一个对象的时候触发
+    该函数需要return 一个字符串
+__debugInfo (了解)
+    触发时机: var_dump 一个对象的时候触发
+    该函数需要return一个数组
+__call
+    触发时机：当调用一个不存在的对象方法的时候触发：
+    参数1：函数名
+    参数2: 是一个数组，函数中的参数都被存放到这个数组中
+__callStatic
+    触发时机：当调用一个不存在的静态方法所谓时候触发
+    参数1：函数名
+    参数2: 是一个数组，函数中的参数都被存放到这个数组中
+    注意：该方法也是static方法
+serialize   :序列化
+unserialize :反序列化
+__sleep(了解)
+    触发时机：在序列化一个对象的时候调用
+    返回值：必须是一个数组，数组中写你想要序列的成员属性名
+__wakeup（了解）
+    触发时机： 在反序列一个对象的时候调用
+    反序列成功之后，想要让对象执行一些初始化方法，可以写到这个函数中
+__clone（了解）
+    触发时机：在克隆一个对象的时候调用
+    在这里可以对克隆出来的对象的属性做一下操作
+__autoload (这是唯一的一个写在类外的魔术方法)
+    触发时机：new 一个对象的时候，当前脚本没有这个类，那么会触发这个方法，
+    参数：就是该类的类名字符串
+
+
+********************类常量和静态属性和方法*******************
+1、类常量
+     const IP = 123;
+     调用方法
+        类外部： 类名::常量名 (或者 $obj::常量名);
+        类内部： self::常量名 (或者 $this::常量名);
+    self:就是当前类名
+    在外部尅使用define和const定义常量。但是在内部只能使用const定义常量
+    注意：常量前面不能加修饰符
+2、静态属性和方法
+    静态属性、静态方法
+    对象属性、对象方法
+
+    static如果用来修饰属性和方法之后，那么该属性和方法是属于整个类的，不是属于某个对象的。
+    静态属性调用方法：
+        类外部： 
+            类名::静态属性名    (或者  $obj::静态属性名);
+        类内:
+            self::静态属性名    (或者  $this::静态属性名);
+    
+    静态方法调用方法：
+        类外部：
+            类名::静态方法名 （或者 $obj::静态方法名称 $obj->静态方法名）;
+        类内部：
+            self::静态方法名   (或者 $this::静态方法名  $this->静态方法名);
+    静态方法注意项
+        1、静态属性和方法前面可以加属性修饰符
+        2、静态属性和静态方法效率高
+        3、通过静态方法来创建单列对象(单一实例)
+        4、静态方法中不能出现$this关键字
+
+
+************************抽象类**********************************************
+mysql
+oracle
+sqlserver
+db2
+通用的东西放到一块，写一个父类
+不同的东西各个子类自己来实现
+注意：
+    1、抽象不能实例化对象。new 一个对象是不行的。
+    2、抽象存在的目的是为了让子级继承
+    3、抽象类的定义和普通类的定义一样，只不过前面要加上一个关键字：abstract
+    4、抽象类里面一般都要有抽象方法，抽象方法是用来让子类实现的，而且子类必须，不实现就报错
+    5、抽象方法只能是public和protected
+    6、抽象方法如果有参数，参数有默认值，那么实现该方法的时候参数和默认值也都要有
+    7、抽线类可以继承抽象类，子类在实现的时候所有的抽象方法都得实现
+
+接口 (抽象的抽象类)
+    interface:接口
+    implements:实现
+    接口中的方法都是抽象方法，所以abstract可以省略不写
+    接口中的方法必须是public 
+    接口中只能规定方法，不能写属性，(接口中可以写常量)
+    一个类可以实现多个接口，中间用逗号隔开
+    一个类可以先继承父类，然后在实现接口
+    接口可以继承接口，但是里面的方法都是要实现的
+
+    面向接口开发
+
+
+******************trait和命名空间***************************
+1、trait（特性）
+    trait就是用来模拟实现多继承
+    instance：实例
+    定义trait要以trait关键字开头，然后里面的写法和类的写法一模一样，一般情况下，在trait中我们不加成员属性，只加成员方法
+    trait不能实例化
+    trait中的方法想让(子级)来使用，该方法必须是public 
+    trait可以嵌套trait
+
+    方法名冲突
+        use Dun, Swrod{
+            Dun::attack insteadof Sword;  //
+            Dun::attack as DunAttack;  //重名
+            Sword::attack as Sattack;
+        }
+
+2、命名空间
+    在一个文件中如果出现了Person类，能不能再定一个Peron类，命名空间就是文件夹。在不同的命名空间下面就可以有相同的类名
+    namespace:命名空间
+    use 使用规则：
+    
+    1、第一个命名空间的命名：前面不能有任何的代码
+    2、根空间、子空间
+        根空间
+        你的hello空间其实就是  \hello
+        你的world 空间其实就是  \world
+        你在world空间下 hello\Dog ===> world\hello\Dog
+    3、use使用，as使用修改重命名问题
+        use \hello\test\Dog as SmallDog;
+        use \world\Dog as BigDog;
+
+
+*********************杂项和try-catch***********************
+1、函数
+    call_user_func   
+    call_user_func_array
+    spl_autoload_register
+    注意： 这三个函数案例是，1fun.php,2sql_autoload_register.php
+
+2、常量和有关函数
+    __BAMESPACE__           当前命名空间名
+    __CLASS__               当前类名
+    __METHOD__              当前方法名
+    instanceof              判断一个对象是否属于当前类
+    class_alias             给类起别名
+    class_exists            判断类是否存在
+    get_class_methods       得带类的所有的方法
+    get_class_vars          得到类的所有属性
+    get_class               根据对象得到当前类名
+    interface_exists        判断接口是否存
+    trait_exists            判断trait是否存
+    method_exists           判断方法是否存
+    property_exists         判断属性是否存在
+
+3、异常处理
+    生活中：A计划、B计划
+    代码中：代码按照正常的逻辑执行，如果出现异常，则执行事先准备好的另一套方案try
+    catch: 映射到代码中，try是尝试执行某一块的代码，然后如果出现异常情况，那么需要手动抛出异常(throw),抛出异常之后，就会被catch捕获到、
+    注意： try-catch是一种结构，一个try必须至少对应一个catch
+           try和catch之间不能加任何代码
+    流程：程序正常运行try结构中的代码，如果try中抛出异常，try中抛出异常后面的代码都不会执行，那么就会执行catch中的代码，然后继续向下执行，如果没有抛出异常，则执行完try中的代码之后，程序继续向下执行
+    Exception
+        官方的异常处理类，是所有异常类的基类
+        getMessage:得到异常消息
+        getCode:得到异常代号
+    自定义异常处理类
+        final:如果用来修饰累，那么代表这个类不能被继承，如果用来修饰方法，代表这个方法不能被重写，
+        要继承自官方的异常处理类，方法自己随便添加，父类方法注意能不能重写
+        注意：如果多个catch，要将自定义的异常类写到上面，将官方异常类写到下面嵌套
+    自定义异常处理函数(了解)
+    set_exception_handler('test');
+
+    注册一个函数 ，当抛出异常的时候，就会被这个函数自动捕获到，该函数有一个参数，参数就是异常对象
+
+
+*************PDO语法******************
+1、概述
+    数据库有很多种 mysql saserver oracle db2
+    通过php去连接数据库怎么链接，不同的数据链接的时候使用的扩展不一样
+    有没有一套扩展库可以直接用来连接所有的数据库呢？有 PDO （php data object）
+    mysqli
+    PDO
+    驱动
+2、使用（手册）
+    主要是3个类： PDO  PDOStatement  PDOException
+    dsn (data source name)
+        1、字符串形式
+            'mysql:host=localhost;dbname=binbging;charset=utf8';
+        2、文件形式
+            $PDO = new PDO('uri:file:///c:..../dsn.txt','root','123123')；
+        3、php.ini
+            pdo.dsn.lala = "mysql:host=localhost;dbname=binbging;charset=utf8";
+            $pdo = new PDO('lala','root','123123');
+        获取和设置信息
+            setAttribute
+                PDO::ATTR_CASE
+                PDO::ATTR_CASE
+                PDO::ATTR_AUTOCOMMIT
+            getAttribute
+            数组
+        错误模式
+            1、默认
+            2、警告
+                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);
+            3、异常
+                $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            PDO执行sql语句
+                exce    执行不要结果的语句  比如 增删改
+                query   执行要结果集的语句  比如  查 desc
+                lastInsertId 返回最后插入语句的id号
+            事务操作
+                什么叫做事务？   银行转账
+                注意表引擎有两种。myisam（不支持）  innodb（支持）
+                $pdo->beginTransaction();   开启一个事务
+                $pdo->commit();             提交事务
+                $pod->rollback();           滚回到初始化状态
+            预处理语句
+                优点：效率、安全(sql注入)
+                为了提高效率，我们要使用预处理语句
+                PDOStatement
+                prepare         预处理sql语句
+                execute         执行sql语句
+                bindParam       备好数据操作
+                增删改
+                    增加： $stmt = $pdo->prepare(insert into wukog(name,age,money) values(?,?,?));
+                查(结果集)
+                    fetch       //提取单条数据
+                    fetchAll    //提取所有数据，返回二维数组
+                        模式如下几种
+                        PDO::FETCH_ASSOC  //关联数组
+                        PDO::FETCH_NUM    //索引数组
+                        PDO::FETCH_BOTH
+                        PDO::FETCH_OBJ
+                setFetchMode    设置默认的提取模式
+                绑定列
+                    $stmt->bingColumn('name',$name);
+                    $stmt->fetch(PDO::FETCH_NUM);
+

@@ -1,0 +1,353 @@
+<link rel="Shortcut Icon" href="图片地址名称ico" />  网页标题添加图片
+hidden	 隐藏属性 <p hidden>这个段落应该被隐藏。</p> <element hidden="hidden">
+cursor:pointer  鼠标变成手型
+list-style:none; 去除li的点
+background:url('图片地址') no-repeat; 不允许复制
+border-radius: 78.5px 78.5px 78.5px 78.5px; 画一个圆
+<link rel="icon" href="favicon.ico" />  调用ico图片
+//禁止input 输入：
+<input type="text"  name="IP" disabled="disabled" />  //全部游览器支持 disabled="disabled"
+另外可以通过css屏蔽输入法：<input style="ime-mode: disabled">   //部分游览器支持  style="ime-mode: disabled"
+
+transform:translate(-50%,0)  //自动计算居中
+::after{  //清除浮动
+    content:"";
+    display:table;
+    clear:both;
+}
+
+设置页面为不缓存，访问上一次页面就需要重新去服务器获取。
+<meta HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+<meta HTTP-EQUIV="expires" CONTENT="0"> 
+
+//设置缓存时间：
+<meta http-equiv="Cache-Control" content="max-age=7200" />
+
+//透明
+filter:alpha(opacity=50);  /* ie 有效*/
+-moz-opacity:0.5; /* Firefox  有效*/
+opacity: 0.5; /* 通用，其他浏览器  有效*/ 
+outline:none;  //去掉input选中时的蓝色框
+clear:both; 禁止浮动
+cursor:pointer; //鼠标手型
+autocomplete="off"  禁用掉输入系统自动补全
+按钮：button    submit
+box-shadow: 1px 1px 50px rgba(0,0,0,.3) ;背景浮力效果
+text-shadow: 1px 1px 50px rgba(0,0,0,.3) ;文字浮力效果
+font-size:4vw或rem;  自适应字体
+border-style:dotted solid double dashed; 上边框是点状,右边框是实线,下边框是双线,左边框是虚线
+
+禁止复制和右键
+1．禁止网页另存为：在<body>后面加入以下代码： 
+<noscript> 
+<iframe src="*.htm"></iframe> 
+</noscript> 
+
+
+2．禁止网页内容复制．粘贴：在<body>中加入以下代码： 
+<body onmousemove=/HideMenu()/ oncontextmenu="return false" ondragstart="return false" onselectstart ="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()">
+禁止鼠标拉动，是要放在标签上的比如a标签：ondragstart="return false"
+
+//定位
+position:absolute;相对定位
+position: relative;绝对定位
+position: fixed; 固定定位
+
+//图片居中
+vertical-align:middle;  图片上下居中
+text-align:center;    图片左右居中
+line-height:;  图片上下居中
+
+
+//复习HTML
+ul a:first-child //ul下的第一个a标签
+ul a:last-child //ul下的最后一个a标签
+nth-last-child（2） 规定属于其父元素的第二个子元素的每个 p 元素，从最后一个子元素开始计数：
+nth-child(number)直接匹配第number个元素。参数number必须为大于0的整数。简单数字序号写法
+:nth-child(an)匹配所有倍数为a的元素。其中参数an中的字母n不可缺省，它是倍数写法的标志，如3n、5n。倍数写法
+:nth-child(an+b) 与 :nth-child(an-b)先对元素进行分组，每组有a个，b为组内成员的序号，其中字母n和加号+不可缺省，位置不可调换，这是该写法的标志，其中a,b均为正整数或0。如3n+1、5n+1。但加号可以变为负号，此时匹配组内的第a-b个。（其实an前面也可以是负号，但留给下一部分讲。）
+overflow: hidden; //移除隐藏
+outline:none; //去掉input 中点击时出现的蓝色边框
+text-indent：10px    //文字缩进
+clear:both //清除浮动
+height:auto !important; overflow:visible;  //IE跟火狐高度不一致问题
+word-wrap:break-word; //强制文字换行
+resize : none; //去掉textarea怎么去掉右下角拉去 ，去除焦点
+box-sizing: border-box; //不计算边框
+letter-spacing：文字的间距
+word-wrap:break-word; 自动换行
+white-space:nowrap; 禁止换行
+
+/*超出高度的时候就显示滚动条
+min-height:100px;
+max-height: 300px;
+overflow:hidden   //隐藏
+overflow-x:hidden;
+overflow-y:hidden; //隐藏
+overflow-y:auto;显示滚动条
+*/
+
+背景图铺满屏效果
+<body background="images\002.png"
+style=" background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;"
+>
+
+
+//过时了
+<frameset rows="76,*" framespacing="0" border="0">
+    <frame src="top.html" id="header-frame" name="header-frame" frameborder="no" scrolling="no">
+    <frameset cols="180,*" framespacing="0" border="0" id="frame-body">
+        <frame src="menu.html" id="menu-frame" name="menu-frame" frameborder="no">
+        <frame src="main.html" id="main-frame" name="main-frame" frameborder="no">
+    </frameset>
+</frameset>
+
+//iframe 最新做法
+<iframe></iframe>
+top.location.href="地址" js跳出
+border:
+none	定义无边框。
+hidden	与 "none" 相同。不过应用于表时除外，对于表，hidden 用于解决边框冲突。
+dotted	定义点状边框。在大多数浏览器中呈现为实线。
+dashed	定义虚线。在大多数浏览器中呈现为实线。
+solid	定义实线。
+double	定义双线。双线的宽度等于 border-width 的值。
+groove	定义 3D 凹槽边框。其效果取决于 border-color 的值。
+ridge	定义 3D 垄状边框。其效果取决于 border-color 的值。
+inset	定义 3D inset 边框。其效果取决于 border-color 的值。
+outset	定义 3D outset 边框。其效果取决于 border-color 的值。
+inherit	规定应该从父元素继承边框样式。
+
+//编辑框
+<textarea class="text" name="text"></textarea>
+
+
+svg不是所有浏览器都支持，firefox, chrome支持，ie有的低版本不支持。
+<iframe src="rect.svg" width="300" height="100"></iframe>
+
+//
+target="_top" 整一个页面跳转
+
+怎样禁止图片拖动复制：在img标签中加入
+oncontextmenu=”return false;” //禁止鼠标右键  
+ondragstart=”return false;” //禁止鼠标拖动  
+onselectstart=”return false;”//文字禁止鼠标选中  
+onselect=”document.selection.empty();”//禁止复制文本  
+
+去掉游览器对页面的缓存: 放在header标签里
+<meta http-equiv="Expires" CONTENT="0">
+<meta http-equiv="Cache-Control" CONTENT="no-cache">
+<meta http-equiv="Pragma" CONTENT="no-cache">
+
+//兼容ie8的不保留缓存的
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+
+//文件上传
+文件上传控件(input type='file')对文件类型的过滤
+<input type="file" id="myFile" accept="image/jpeg,image/gif,application/msword"/> 文件类型，但不限制具体扩展名，如：image/*，就只要是图片就行。
+文件类型+具体的文件扩展类型，如：image/jpeg，使用的是MIME_TYPE类型
+
+input 控制只能输入数字：onkeyup="this.value=this.value.replace(/[^\d]/ig,'')"
+p { white-space:nowrap; }
+自动换行 
+p { word-wrap:break-word; }
+强制英文单词断行 
+p { word-break:break-all; }
+
+控制文字溢出：
+  overflow : hidden;        //超出时隐藏
+  text-overflow: ellipsis;  //溢出时显示...
+  display: -webkit-box;     // 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+  -webkit-line-clamp: 2;    //用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。
+  -webkit-box-orient: vertical; // 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
+  
+ //修改滚动条
+ ::-webkit-scrollbar  
+{  
+    width: 10px;  /*滚动条宽度*/
+    height: 10px;  /*滚动条高度*/
+}  
+
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  
+    border-radius: 10px;  /*滚动条的背景区域的圆角*/
+    /*滚动条的背景颜色*/  
+}  
+
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 10px;  /*滚动条的圆角*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: #ccc;  /*滚动条的背景颜色*/
+}
+//ios系统上overflow: scroll在iOS上滑动卡顿的问题,只要加上这句即可：
+-webkit-overflow-scrolling: touch;
+
+
+
+***********************************html5**********************************************************
+常用表单：
+<video src="./img/opl.mp4" controls="controls"></video> //视频播放器
+
+常用表单属性：
+placeholder="用户名"   //用于在inupt,创造默认提示语
+
+常用的css:
+display: flex; 设置弹性盒子
+
+表单验证码模块：
+valueMissing：确保表单控件中的值已填写，在表单控件中将required特性设置为true。如：<input type="text" name="myText" required>
+typeMismatch：保证控件值与预期类型相匹配(如number、email、URL等).指定表单控件的type特性值。 如：<input type="email" name="myEmail">
+patternMismatch：根据表单控件上设置的格式规则验证输入是否为有效格式。在表单控件上设置pattern特性，井赋予适当的匹配规则。如：<input type="text" name="creditcardnumber" pattern="[0-9]{16}" title="A creditcard number is 16 digits with no spaces or dashes">
+tooLong：避免输入值包含过多字符 ，在表单控件上设置maxLength特性。如：<input type="text" name="limitedText" maxLength="140">
+rangeUnderflow：限制数值型控件的最小值，为表单控件设置min特性，并赋予允许的最小值。如：<input type="range" name="ageCheck" min="18">
+rangeOverflow：限制数值型控件的最大值，为表单控件设置max特性，并赋予允许的最大值。如：<input type="range" name="kidAgeCheck" max="12">
+stepMismatch： 确保输入值符合min、max及step即设置，为表单控件设置step特性，指定数值的增量。<input type="range" name="confidenceLevel" min="0" max="100" step="5">
+customError：处理应用代码明确设置及计算产生的错误，调用setCustomValidity(message)将表单控件置于customError状态。如：passwordConfirmationField.setCustomValidity("Password values do not match.");
+
+HTML5的表单所有type类型:
+button：定义可点击的按钮（通常与 JavaScript 一起使用来启动脚本）如：<input type="button" name="" id="" value="按钮">
+checkbox：定义复选框。如:<input type="checkbox" name="" id="" checked>女
+color：定义拾色器 如： <input type="color" name="" id="">
+date：定义 date 控件（包括年、月、日，不包括时间），如：<input type="date" name="" id="">
+datetime：定义 date 和 time 控件（包括年、月、日、时、分、秒、几分之一秒，基于 UTC 时区）。如：<form action="">生日 (日期和时间):<input type="datetime" name="" id=""> <input type="submit" name="" id="" value="提交"></form>
+datetime-local：定义 date 和 time 控件（包括年、月、日、时、分、秒、几分之一秒，不带时区）。如： <input type="datetime-local" name="" id="">
+month：定义 month 和 year 控件（不带时区）如： <input type="month" name="" id="">
+week：定义 week 和 year 控件（不带时区）如： <input type="month" name="" id="">
+time：定义用于输入时间的控件（不带时区） 如： <input type="time" name="" id="">
+email：定义用于 e-mail 地址的字段。如： <form action=""></form>E-mail:<input type="email" name="" id=""></form>
+file：定义文件选择字段和 "浏览..." 按钮，供文件上传。如： <input type="file" name="" id="">
+hidden：定义隐藏输入字段。如：<input type="hidden" name="" id="">
+image：定义图像作为提交按钮。如：<input type="image" name="" id="">
+number：定义用于输入数字的字段。　如：<input type="number" name="" id="">
+password：定义密码字段（字段中的字符会被遮蔽）。 如： <input type="password" name="" id="">
+radio：定义单选按钮。 如： <input type="radio" name="" id="" checked>女<br>
+range：定义用于精确值不重要的输入数字的控件（比如 slider 控件）。如: <input type="range" name="" id="">
+reset：定义重置按钮（重置所有的表单值为默认值）。如： <input type="reset" name="" id="">
+search：定义用于输入搜索字符串的文本字段。如:<input type="search" name="" id="">
+submit：定义提交按钮。如： <input type="submit" name="" id="" value="提交">
+tel：定义用于输入电话号码的字段。如: <input type="tel" name="" id="">
+text：默认。定义一个单行的文本字段（默认宽度为 20 个字符）。如：<input type="text" name="" id="">
+url：定义用于输入 URL 的字段。如：<input type="url" name="" id=""> 
+
+
+***********************************手机端设计**********************************************************
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+width:视口的宽度
+initial-scale:初始化缩放
+user-scalable:是否允许用户自行缩放（值：yes/no; 1/0）
+minimun-scale：最小缩放，一般设置了用户不允许缩放，就必要设置最小和最大缩放
+maximun-scale: 最大缩放
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+设置游览器的兼容模式版本（让IE使用最新的渲染引擎
+
+/*使用媒体查询时一定要从最小到最大*/
+/*当条件满足时就会执行（屏幕大小）*/
+min最小
+max最大
+媒体类型：
+screen屏幕
+print打印机
+handheld手持设备
+all通用
+常用媒体查询参数：
+width:视口宽度
+height:视口高度
+device-height:设备的高度
+device-width:设备的宽度
+orientation:检查设备处于横向（landscape）还是竖屏(portrait)
+@media screen (min-width:768px){
+  .container{
+    width: 800px;
+  }
+}
+/*媒体查询可以使用两个参数*/
+@media(min-width:580px) and (max-width:768px){
+.container{
+    width: 800px;
+  }
+}
+
+/*常见的字体，很重要*/
+font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+
+/* 常用的代码 */
+nth-of-type  ：基友选择器； 如section:nth-of-type(2n) ：section标签下才使用nth-of-type每一个section标签高度都是200px,(2n)200;
+font-style: normal;  去除斜体
+
+/*字体图标格式*/
+- eot : embedded-opentype
+
+- svg : svg
+
+- ttf : truetype
+
+- woff : woff
+
+/*样式统配*/
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: itcast;
+}
+[class^="icon-"]:凡是以icon开头的样式，*=是包含
+[class^="icon-"],
+[class*=" icon-"] ：表示凡是以icon开头额样式，并且包含空格的icon-
+
+/*html中的bootcss使用class */
+text-center 左右对齐
+
++ 号使用：ul li + li{
+	color:red;
+}意思是当执行的第一个li后面的才执行到color:red;而第一个是默认，或 ul li + .link{ color：red;}这个就是.link位默认，然而.link下面的的第一个为li为color:red;
+	
+	
+最新手机端开发思想：flexbox 弹性盒子布局
+display: -webkit-flex; //父级容器设置弹性盒子
+flex:1; //子级容器设置为占比例多少个
+
+常用的不定宽高的水平垂直居中：
+position:absolute;
+left:50%;
+top:50%;
+-webkit-transform:translate(50%，50%）;
+
+flexbox设置不定宽高的水平垂直居中：
+display: -webkit-flex; //父级容器设置弹性盒子
+justify-content:center; //子级元素水平居中
+align-items:center;  //子级元素垂直居中
+display:-webkit-flex; //子级元素设置
+flex-wrap: wrap; //竖着显示
+
+flex弹性盒子模型：flex
+//第一种
+display: -webkit-flex; 
+//第二种
+flex-direction:row;
+display:-webkit-flex;
+或
+flex-direction:row-reveres;
+display:-webkit-flex;
+
+
+
+
+
+
+
+
+
+
+
+

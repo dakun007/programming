@@ -1,0 +1,448 @@
+D函数	实例化Model，优先调用model子类的功能
+M函数	实例化Model，优先调用model父类的功能
+C函数	读取系统配置信息
+I函数	接受所有传值如：$_GET和$_POST等等  去掉左右两边空提交过的值修改配置文件，'DEFAULT_FILTER' =>  'trim,htmlspecialchars'  真加trim、、指定接受get或post('get.p') 、、IS_POST或IS_GET
+U函数	按系统设定的URL 规则,生成URL  U('Home/Index/test',array('id'=>3)) U(' 模块/控制器/方法', 参数数组或字符串)
+A函数	A('Home/Article');  跨文件调用  和 new \Home\Tool\Addoll(); 使用一样的额。
+new方法使用，  $a = new \Home\Toole\Addole();调用文件  $a->user();调用文件之后调用方法；A函数亦不例外
+S函数	读取缓存方法；缓存初始化 S(array('type'=>'xcache','expire'=>60))
+1、创建商品控制器【C】
+2、创建商品模型【M】
+3、创建一个添加商品的表单【V】
+创建模块：define('BIND_MODULE','Admin');
+php共存版本需要修改伪静态：RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
+继承：
+public function __construct(){  //初始化调用
+        parent::__construct();  //(parent)继承当前所需要的方法
+}
+header("Content-Type:text/html;charset=utf-8"); 
+获取ip地区：http://ip.taobao.com/service/getIpInfo.php?ip=ip参数，使用阿里云
+注意：
+//在URL上去掉Home等模块
+在如shop文件里的common里的配置文件里设置：'MODULE_ALLOW_LIST' => array ('Home','Admin'),
+在如shop/Home文件里的common里的配置文件里设置：'DEFAULT_MODULE' => 'Home',
+使用U函数之后如何去掉index.php,在入口文件添加 define('__APP__', '');
+隐藏URL中的控制器:
+伪静态 rewrite 
+RewriteRule ^dianying(.*)$ index.php/home/index/dianying/$1 [QSA,PT,L]
+RewriteRule ^dianshiju(.*)$ index.php/home/index/dianshiju/$1 [QSA,PT,L]
+RewriteRule ^dongman(.*)$ index.php/home/index/dongman/$1 [QSA,PT,L]
+RewriteRule ^zongyi(.*)$ index.php/home/index/zongyi/$1 [QSA,PT,L]
+
+//字符编码
+tp设置模板编码，在配置文件里设置：'DEFAULT_CHARSET'=> 'gbk',
+//配置文件项目
+'DEFAULT_FILTER' => 'trim,htmlspecialchars',  //过滤用户提交的数据左右空格
+
+//SQL查询
+field('user','输入数据库字段'); 		查询出想要的字段
+select()	查询多行数据库字段
+where('输入条件')  查询条件
+find()		查询一条数据
+order('字段值 条件如:降序(desc)或升序(asc)');	  查询字段排序
+limit(2,3);   查询出来的结果从：地2条到3，几条到几条 或 limit(3)只查询3条 
+save();修改语句
+add(); 添加语句
+delete();删除语句
+mt_rand(3,10);  //随机输出3到10之间的数字
+count()  查询总记录。
+distinct(true)  去掉重复数据
+group('字段') 去掉重复数据
+join() 连贯操作方法 案例：field('a.*,b.brand_name')->alias('a')->join('LEFT JOIN __BRAND__ b ON a.goods_brand_id=b.id') ，a是指本身，b是指第二表，alias是给本身自己附一个名称,join（LEFT JOIN __第二表名__ 为b表 ON对比 a.goods_id = b.id）
+案例：
+$goodsModel->field('goods_id,goods_name,shop_price,goods_img,market_price')->where('is_hot=1')->order('goods_id desc')->limit('0,4')->select();
+
+
+cache(true) 在查询的同时会根据当前的查询条件等信息生成一个带有唯一标识的查询缓存，如果指定了key的话，则直接生成名称为key的查询缓存 ，例如：
+$Model->cache('cache_name')->select();
+  
+
+html标签语句
+//判断
+<if condition="10 eq 10">山东师大</else>错误</if>   //判断标签语句
+{值?'对':'错'}  //三元运算符
+//循环
+<foreach name="传过来的值" item="循环输出的值"></foreach>
+
+volist标签通常用于查询数据集（select方法）的结果输出，通常模型的select方法返回的结果是一个二维数组，可以直接使用volist标签进行输出。在控制器中首先对模版赋值：
+
+
+
+
+
+
+//引入外部文件
+<import type="css" file="adc" />  //引入css和js等
+<load href="__PUBLIC__/a.css" />  //引入css和js等
+<include file="public/haer" /> //引入文件public这个文件夹放在view中
+
+url访问
+php文件中的u方法使用: U('Home/User/ff',array('id'=>2))
+html文件中使用：{:U('Home/User/ff',array('id'=>2)}  
+
+
+
+页面跳转
+redirect('跳转地址','说明'); //可以不加上说明
+header('Location:other.php');  //PHP原生跳转
+header('Refresh:3,Url=other.php');  //PHP原生跳转 3秒后跳转
+真true 假false
+
+//自动验证 
+在Model操作: array(验证字段1,验证规则,错误提示,[验证条件,附加规则,验证时间]),
+在Controller操作：
+第一个参数接受$_POST
+第二个参数表单类型。1.为添加，2.为修改
+$User = D('goods'); $User->create(I('post.'),1)；
+
+//验证码 获取验证
+$vry = new \Think\Verify();
+if($vry->check(I('post.yzm'))){
+echo 1;
+}else{
+echo 2;
+};
+
+
+//自动填充
+array(完成字段1,完成规则,[完成条件,附加规则]),
+
+//自动过滤：用insertFields //添加数据 和 updateFields //修改数据， 来限制允许插入和更新的字段.
+protected $updateFields  = "自动过滤,不在如下列表中列,将被过滤掉,不会Update相应字段";
+
+//分页数据
+数据分页建议使用：limit方法分页，因为它是自动过滤URL地址。
+limit($Page->firstRow.','.$Page->listRows) $Page->firstRow:是开始页。$Page->listRow:是结束页
+
+
+//返回跳转
+$this->error('失败',U('地址'),2) //失败后跳转
+$this-success('成功',U('地址'),2) //失败后跳转
+$mode->getError();  //显示model传过来的值。
+
+php文件操作语句：
+循环：
+while(条件区){
+	内容区；
+	break;跳出
+	
+}
+foreach(数据（数组）as $k => $value){
+	内容区...
+}
+
+
+常用的语句：
+getcwd() ； 打印出本文件的目录
+__FILE__ ： 打印出本文件的结对路径
+$_FILES : 打印出上传文件信息，
+GetImageSize(图片地址);获取图片详情信息如:宽高
+strlen() 获取字符的长度  isset($str{6})
+字符串替换的几个函数：
+strtr()
+str_replace()
+substr_replace()
+preg_replace()
+. 拼接语法，如： .=
+strpos() 函数查找 "php" 在字符串中第一次出现的位置：，可以来判断字符串有没有空格，如strpos(' 1213   233 '," "）；
+rand(1,20)  //随机整数
+reutnrn 返回
+strstr()指定字符开始截取，前部截取：strstr ( '123456789' ,  '5' ,true); ,后部截取：strstr ( '123456789' ,  '5'); 
+assign('名称'，'值')； 吧数据值传入到html页面。$this->assign('info',$info);
+str_shuffle — 随机打乱一个字符串
+substr — 返回字符串的子串 (截取字符串)，substr('字符串'，0,10); ，删除最后一个字符substr($b, 0, -1)；
+tp:分装的{$ov.se_url|msubstr=0,50,'utf-8'}
+empty — 检查一个变量是否为空
+isset — 检测变量是否设置  检测变量是否设置，并且不是 NULL。 
+ is_null  功能检测变量是否设置，并且不是 NULL。 
+unset — 释放给定的变量  销毁指定的变量
+count — 计算数组中的单元数目或对象中的属性个数  也就是说计算机总长度
+dei()和exit(); 这两个都是脚本阻止的。
+mb_substr（值，开始，结束）；mb_substr($ax,0,-1); 
+//获取域名或主机地址 
+echo $_SERVER['HTTP_HOST']."<br>"; #localhost
+//获取网页地址 
+echo $_SERVER['PHP_SELF']."<br>"; #/blog/testurl.php
+//获取网址参数 
+echo $_SERVER["QUERY_STRING"]."<br>"; #id=5
+//获取用户代理 
+echo $_SERVER['HTTP_REFERER']."<br>"; 
+str_replace("要被替换的值","要替换成说明值",数据$aa,可以打印出当前替换了多少次数$i);  //替换函数
+explode函数分割字符串到数组
+$source = "hello1,hello2,hello3,hello4,hello5";//按逗号分离字符串 
+$hello = explode(',',$source); 
+implode() 数组转字符串
+file_exists:文件是否存在
+is_dir:目录是否存在
+strrev() 字符倒序
+trim() 去掉前后空格
+define() 自定义常量
+file_get_contents() 把文件解析成字符打印出来
+
+is_bool();//判断是否为布尔型
+is_float(); //判断是否为浮点型
+is_int(); //判断是否为整型
+is_numeric(); //判断是否为数值型
+is_string(); //判断是否为字符串
+is_array(); //判断是否为数组
+is_object(); //判断是否为对象
+is_numeric() //判断是否数字
+
+
+数组排序
+sort() - 以数字升序对数组排序
+rsort() - 以数字降序对数组排序
+asort() - 根据值，以升序对关联数组进行排序
+ksort() - 根据键，以升序对关联数组进行排序
+arsort() - 根据值，以降序对关联数组进行排序
+krsort() - 根据键，以降序对关联数组进行排序
+
+数组语句：详情最好查询php手册
+array_reverse(数据值,true);反转数组  第二参数是保留原来的key键值所以要加true
+arrar_merge(数据1,数组2); 合拼一个或多个数组
+array_shift — 将数组开头的单元移出数组 
+array_merge_recursive(1，2); 拼接数组
+array_unique  检查是否重复,并移除重复
+array_key_exists： 纯粹的判断数组键值对是否存在，无论值是多少
+shuffle() 打乱数组
+array_slice（值，0，2） 取出数组第几条数据
+is_array（）；  //判断当前页面是不是数组
+array_intersect_assoc(1,2) //检查两个数组中重复的
+array_intersect(1,2) //检查两个数组中重复的，这个比较精准
+array_merge(array_diff($1,$2)); //获取两个数组中不相同的数据，原理是先把两个数据合成一个数据，然后在比较两个数据的键值交叉返回不相同的数据
+
+$array = array(0 => "a", 1 => "b", 2 => "c");
+删除一个元素，且保持原有索引不变：unset($array[1]);
+删除一个元素，不保持索引：array_splice($array, 1, 1);
+按值删除多个元素，保持索引 ：array_diff($array, ["a", "c"]);
+按键删除多个元素，保持索引： array_diff_key($array, [0 => "xy", "2" => "xy"]);
+
+//json语法
+json_encode（传值）；
+
+执行系统命令
+exec("sudo shutdown -h now");
+执行打开软件
+system('notepad.exe');
+
+面向对象语法：
+public 表示全局，类内部外部子类都可以访问；
+private表示私有的，只有本类内部可以使用；
+protected表示受保护的，只有本类或子类或父类中可以访问；
+
+
+
+//外部使用框架（百度Um编辑器）
+引入一些js和css这些可以在文件里的index.html案例中复制出来
+第一个参数是：传入id,第二个是配置项。
+UM.getEditor('goods_desc',{
+    initialFrameWidth:1000 //初始化编辑器宽度,默认500
+    ,initialFrameHeight:300  //初始化编辑器高度,默认500
+});
+
+
+//外部使用htmlpurifier（过滤恶意攻击代码）
+下载好源码包之后我们只要拿里面的library文件夹就行了，然后把这个文件夹引入网站根目录下。
+在Common创建一个function 公共文件，然后把下面语句导入就行了，改一下require_once CORE_PATH . 'HtmlPurifier/HTMLPurifier.auto.php'; 路径问题
+require_once CORE_PATH . 'HtmlPurifier/HTMLPurifier.auto.php';
+$_clean_xss_config = HTMLPurifier_Config::createDefault();
+$_clean_xss_config->set('Core.Encoding', 'UTF-8');
+$_clean_xss_config->set('HTML.Allowed','div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]');
+$_clean_xss_config->set('CSS.AllowedProperties', 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align');
+$_clean_xss_config->set('HTML.TargetBlank', TRUE);
+$_clean_xss_obj = new HTMLPurifier($_clean_xss_config);
+return $_clean_xss_obj->purify($data);
+
+
+//配置文件的操作 "config.php"
+'DEFAULT_FILTER'        =>  'trim,htmlspecialchars', // 默认参数过滤方法 用于I函数“tmlspecialchars”在前面加上trim就过滤左右两边的空格
+
+
+
+
+//钩子函数在数据添加等之前做一些事情，在[ M ]里做操作。在方法里有两个参数：1.表当中即将要插入到数据库中的数据 ，2.
+注意:使用参数之前要加上&才能正常使用。因外部数组要改动内部数组的数据就要上&才行
+_before_insert(&$data,$option); //添加之前做操作。
+_after_insert(&$data,$option); //添加之后做一些操作
+_before_update(&$data,$option);修改之前做一些操作
+_after_update(&$data,$option); 修改之后做一些操作
+_before_delete(&$data,$option); 删除之前做一下操作
+_after_delete(&$data,$option); 删除之后做一些操作
+$_FILES 常量是用在文件上传的，在form中要添加一段代码：enctype="multipart/form-data"
+
+//布局文件引入
+<layout name="文件路径" />
+<__CONTENT__}  //设置内容放置在文件上（内容区）
+
+//搜索
+like //单个搜索
+between //数组搜索array($a,$b) 使用案例：array('between',array($a,$b));
+
+//删除文件
+unlink('文件路径'); // 一次只能删除一次，不能批量删除
+
+//布局引入
+{__CONTENT__}  //显示的内容区域
+<layout name="文件名称" />
+
+
+//自定配置404页面
+修改：ThinkPHP\Tpl目录下的think_exception.tpl文件即可
+
+$_SERVER['SERVER_NAME'];    ///原生获取域名
+{$Think.server.HTTP_HOST}   //thinkphp 获取域名
+{$Think.THINK_VERSION}  //获取数据库版本
+
+//php原生获取mysql数据使用空间大小
+mysql_connect('localhost','root','123123');  //链接数据库
+mysql_select_db('information_schema'); //指定总数据库
+$sql = "select sum(data_length/1024/1024) as data from tables where table_schema='12323'";  //指定那个数据表库的容量大小
+$result = mysql_query($sql);
+$row = mysql_fetch_row($result);
+print_r($row);
+
+
+//查询ip数据库语法
+select  *  from ip where INET_ATON('119.253.32.42') between INET_ATON(startIp) and INET_ATON(endIp);
+
+//获取第二天的时间戳
+date('Y-m-d',strtotime( "+1 day",$time));  简写：strtotime("+1 day",可以添加第二个参数);
+//获取当前时间 00开始
+strtotime(date("Y-m-d")); 时间转为时间戳
+//获取今天开始和结束的时间
+$begintime=date("Y-m-d H:i:s",mktime(0,0,0,date('m'),date('d'),date('Y'))); //开始
+$endtime=date("Y-m-d H:i:s",mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1); //结束
+1. UNIX时间戳转换为日期用函数： date() 
+一般形式：date('Y-m-d H:i:s', 1156219870); 
+2. 日期转换为UNIX时间戳用函数：strtotime() 
+一般形式：strtotime('2010-03-24 08:15:42')； 
+
+//解析时间戳
+{$ov.time||date="Y-m-d h:i:s",###}
+
+PHP跳出循环的方法以及continue、break、exit
+
+获取IP
+$_SERVER["REMOTE_ADDR"];
+
+session和cookie操作  
+session('name'); //获取指定session信息
+session('name',value); //设置session信息
+session('name',null); //删除session信息
+session(null); //清空session信息
+在html页面上操作{$Think.session.admin_id}
+'SESSION_OPTIONS' => array(
+        'expire' => 24 * 3600,
+    ),  //配置session过期时间
+
+
+1、 使用 file_get_contents 函数抓取网页全部内容，当然你也可使用curl、fsockopen等函数
+      2 、使用 str_replace 函数替换内容数据，如：某些标签替换为空字符串 该函数可以来替换空格str_replace(' ','',$str);
+      3 、使用 preg_replace 函数正则替换数据内容，不让把数字替换成空字符串
+      4 、使用 preg_match_all 正则匹配全部内容
+      5、 获取 步骤4 的值放入数据库存储
+      preg_match_all
+
+
+//常量
+__ACTION__ //自获取当前的url方法，用户自作搜索很好
+
+//ajax返回获取值
+$this->ajaxReturn（） thinkphp返回值
+json_encode()  //原生返回值
+eval('('+ data +')'); //返回数据循环出数组
+JSON.parse(返会对象 )  //ec6 最新解析json数据
+console.log 打印
+
+//判断是不是使用微信游览器
+if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ){
+return 1;//是
+} 
+
+字符截取
+$str='123/456/789/abc';
+截取最后一个斜杠后面的内容可以这样来： echo trim(strrchr($str, '/'),'/'); 
+截取第一个斜杠前面的内容可以这样来： echo substr($value,0,strpos($value, '/'));
+截取第一个斜杠后面的内容可以这样来：：echo substr($str,strpos($str,'/')+1);
+指定位置开始截取
+echo cut_str($str,'/',0); //输出 123
+echo cut_str($str,'/',2); //输出 789
+echo cut_str($str,'/',-1);//输出 abc
+echo cut_str($str,'/',-3);//输出 456
+
+
+文件大小计算
+$size = 123;
+$units = array(' B', ' KB', ' MB', ' GB', ' TB'); 
+for ($i = 0; $size >= 1024 && $i < 4; $i++) {
+    $size /= 1024;
+}
+return  round($size, 2).$units[$i]; 
+
+
+//有选择性过滤xss等js代码过滤，使用HtmlPurifier
+注意：包是在H:\程序代码\php使用插件中拿取
+function Xss($data){
+    	require_once './HtmlPurifier/HTMLPurifier.auto.php';
+	$_clean_xss_config = HTMLPurifier_Config::createDefault();
+	$_clean_xss_config->set('Core.Encoding', 'UTF-8');
+	// 设置保留的标签
+	$_clean_xss_config->set('HTML.Allowed','div,b,strong,i,em,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]');
+	$_clean_xss_config->set('CSS.AllowedProperties', 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align');
+	$_clean_xss_config->set('HTML.TargetBlank', TRUE);
+	$_clean_xss_obj = new HTMLPurifier($_clean_xss_config);
+	// 执行过滤
+	return $_clean_xss_obj->purify($data);
+};
+\
+
+
+php SHA256Hex加密
+function SHA256Hex($str){
+    $re=hash('sha256', $str, true);
+    return bin2hex($re);
+}
+password_hash 加密方式：它有三个参数：密码、哈希算法（PASSWORD_DEFAULT）、选项。前两项为必须的。$pwd = "123456";$hash = password_hash($pwd, PASSWORD_DEFAULT);
+password_verify()来校验密码是否和哈希值匹配：密码和哈希值，并返回布尔值。检查之前生成的哈希值是否和密码匹配，password_verify($pwd,'$2y$10$4kAu4FNGuolmRmSSHgKEMe3DbG5pm3diikFkiAKNh.Sf1tPbB4uo2')
+
+URL加密
+$url = 'http://www.xxx.com/CraryPrimitiveMan/';
+$encodeUrl = urlencode($url);   //加密
+echo $encodeUrl . "\n";// 如果是在网页上展示的，就将\n修改为<br/>
+echo urldecode($encodeUrl);  //解析
+得到的结果如下
+http%3A%2F%2Fwww.xxx.com%2FCraryPrimitiveMan%2F
+http://www.xxx.com/CraryPrimitiveMan/
+
+
+//打开目录里的所有文件
+if(file_exists($url)){
+    $i =0;
+    if(is_dir($url)){                   //检测是否是合法目录
+        if ($list = opendir($url)){      //打开目录
+            while ($read_list = readdir($list)){  //读取目录
+                if($read_list!='.' && $read_list!='..'){
+                    $i++;
+                    echo iconv("gb2312","utf-8","$read_list")."<br>";
+                }
+            }
+            closedir($list);    //关于目录
+        }
+    }
+}
+
+
+//防盗链链接，使用Apache的.htaccess防盗链：
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_REFERER} !www.tand.com [NC]   允许站点自身访问，同理，后面还要允许百度，谷歌，和一些订阅源访问。
+    RewriteRule .*\.(gif|jpg|png|js|css)$ http://www.tand.com/index.php [R,NC,L] 这里可以设置防止盗链的类型，如果盗链可以跳转到网站首页，本站没有做图片防盗链，如果你做图片防盗链可以设置被盗链的替代图片：
+</IfModule>
+
+//php 防盗链：
+$referer = $_SERVER['HTTP_REFERER'];
+$selfurl = $_SERVER['HTTP_HOST'];
+if(false == strpos($referer,$selfurl)){
+echo 'phpddt.com防止非法盗链';
+exit;
+}
