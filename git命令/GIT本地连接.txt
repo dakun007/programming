@@ -1,0 +1,9 @@
+mkdir sieri.net
+cd  siwei.net
+git init
+echo "# siwei.net" >> README.md
+git add README.md
+git commit -m "first commit"
+git remote add origin https://git.coding.net/dakun007/siwei.net.git
+git push -u origin master
+                    
