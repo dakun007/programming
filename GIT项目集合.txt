@@ -28,3 +28,14 @@ git add README.md
 git commit -m "first commit"
 git remote add origin git@github.com:dakun007/programming.git
 git push -u origin master
+
+
+//自创商城-谭总需要
+mkdir zichuang
+cd zichuang
+git init
+echo "# zichuang" >> README.md
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:dakun007/zichuang.git
+git push -u origin master
