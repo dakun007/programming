@@ -78,6 +78,7 @@ box-sizing: border-box; //不计算边框
 letter-spacing：文字的间距
 word-wrap:break-word; 自动换行
 white-space:nowrap; 禁止换行
+background-size: cover;  让背景图基于容器大小伸缩
 
 /*超出高度的时候就显示滚动条
 min-height:100px;
