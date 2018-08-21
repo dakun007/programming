@@ -110,6 +110,8 @@ Build::run($build);   //运行自动生成，注意：是要加上\think\来帮�
 一， think\Request类 处理请求类型。     二，助手函数request(),if (request()->isGet()) echo "当前为 GET 请求";是否为 GET 请求
 二，助手函数request()。
 request()->isPost(),这句组合是判断是不是post提交过来的，request()这个方法是要控制器去继承Controller( extends Controller ),
+request()->module()     //获取当前模块名称
+request()->module()     //获取当前模块名称
 request()->controller() //获取当前控制器名称
 request()->action() //获取当前方法名
 
@@ -233,3 +235,11 @@ import('wechat-sdk.wechat', EXTEND_PATH,'.class.php');
 即如下：
 $obj = new  \Test();
 加 ‘\’ 的原因是，tp5的命名空间自动加载规则：自动加载的实现由think\Loader类库完成，自动加载规范符合PHP的PSR-4，根据对规则的了解，放在extend目录下没有定义命名空间的类文件，就是全局化的类。实例化全局化的类的话，即用"\"放在类名前示此类是全局类，就new一个全局化的类！
+
+
+
+
+/***********************git提交代码的时候要删除.gitignore，但是要保留runtime文件夹里的，因这个文件夹是缓存文件夹没必要上传*******************************/
+.gitignore禁止全面上传：
+*
+!.gitignore
